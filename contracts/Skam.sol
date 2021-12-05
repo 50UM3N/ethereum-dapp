@@ -19,6 +19,8 @@ contract skam {
 
     Team[] public teams;
 
+    event AddVoter(Voter _voter);
+
     constructor(bytes32[] memory teamsName) {
         admin = msg.sender;
         voters[admin].added = true;
@@ -37,6 +39,21 @@ contract skam {
             "Voter is already added in the voter list"
         );
         voters[voter].added = true;
+
+        emit AddVoter(voters[voter]);
+    }
+
+    function getTeams() public view returns (Team[] memory) {
+        return teams;
+    }
+
+    function getUser() public view returns (Voter memory) {
+        return voters[msg.sender];
+    }
+
+    function isAdmin() public view returns (bool) {
+        if (msg.sender == admin) return true;
+        else return false;
     }
 
     function vote(uint256 to) public {

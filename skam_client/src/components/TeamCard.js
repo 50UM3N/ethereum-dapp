@@ -1,6 +1,6 @@
 const TeamCard = ({ children, thumbnail }) => {
     return (
-        <div className="card my-2">
+        <div className="card">
             <div className="row g-0">
                 <div
                     className="col-sm-4 p-3"
@@ -20,7 +20,15 @@ const TeamCard = ({ children, thumbnail }) => {
                         alignItems: "center",
                     }}
                 >
-                    <div className="card-body">{children}</div>
+                    <div className="card-body">
+                        {children}
+
+                        <div className="d-flex justify-content-end">
+                            <button className="btn btn-outline-primary btn-sm">
+                                Vote
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

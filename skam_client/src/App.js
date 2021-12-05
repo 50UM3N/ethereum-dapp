@@ -1,67 +1,68 @@
 import "./App.scss";
-import TeamCard from "./components/TeamCard";
-import TeamChart from "./components/TeamChart";
-const App = () => {
-    return (
-        <div className="container my-5">
-            <div className="card my-3">
-                <div className="card-header">Add new voter to voter list</div>
-                <div className="card-body">
-                    <label className="form-label">
-                        Enter the account address and add to the account to
-                        voter list
-                    </label>
-                    <div class="input-group mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Ethereum account"
-                        />
-                        <button
-                            className="btn btn-outline-secondary"
-                            type="submit"
-                        >
-                            Add
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div className="card my-3">
-                <div class="card-header">Vote</div>
-                <div className="card-body">
-                    <div className="row g-3">
-                        <div className="col-md-5">
-                            <TeamCard thumbnail="/assets/teams/team1.png">
-                                <h5 className="card-title">Soumen Khara</h5>
-                                <p className="card-text">
-                                    Fight for right to repair
-                                </p>
-                            </TeamCard>
-                            <TeamCard thumbnail="/assets/teams/team1.png">
-                                <h5 className="card-title">Soumen Khara</h5>
-                                <p className="card-text">
-                                    Fight for right to repair
-                                </p>
-                            </TeamCard>
-                            <TeamCard thumbnail="/assets/teams/team1.png">
-                                <h5 className="card-title">Soumen Khara</h5>
-                                <p className="card-text">
-                                    Fight for right to repair
-                                </p>
-                            </TeamCard>
-                        </div>
-                        <div className="col-md-7"></div>
-                    </div>
-                </div>
-            </div>
 
-            <div className="card my-3">
-                <div class="card-header">Result</div>
-                <div className="card-body">
-                    <TeamChart />
+import TeamChart from "./components/TeamChart";
+import TeamsList from "./components/TeamsList";
+import useWeb3 from "./hooks/useWeb3";
+import skam from "./contracts/skam.json";
+import Loader from "./components/Loader";
+import { useState } from "react";
+import AddVoter from "./components/AddVoter";
+import Toast from "./components/Toast";
+
+const App = () => {
+    const [web3, SKAMContract, accounts, isPending, user, admin] =
+        useWeb3(skam);
+    const [pending, setPending] = useState(false);
+    const [toastData, setToastData] = useState({
+        enable: false,
+        toastTitle: "",
+        toastBody: "",
+    });
+    const handleAddVoter = (e, value) => {
+        e.preventDefault();
+        if (!web3.utils.isAddress(value)) return;
+        SKAMContract.methods
+            .addVoter(value)
+            .send({ from: accounts[0] })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((e) => {
+                let error = JSON.parse(e.message.split("'")[1]).value.data
+                    .message;
+                setToastData((data) => ({
+                    ...data,
+                    ["enable"]: true,
+                    ["toastTitle"]: "Ethereum Error",
+                    ["toastBody"]: error,
+                }));
+            });
+    };
+
+    return (
+        <>
+            {isPending ? (
+                <Loader />
+            ) : (
+                <div className="container my-5">
+                    {admin && (
+                        <AddVoter
+                            handleAddVoter={handleAddVoter}
+                            pending={pending}
+                        />
+                    )}
+                    <TeamsList web3={web3} SKAMContract={SKAMContract} />
+
+                    <div className="card my-3">
+                        <div className="card-header">Result</div>
+                        <div className="card-body">
+                            <TeamChart />
+                        </div>
+                    </div>
+                    <Toast setToastData={setToastData} toastData={toastData} />
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 };
 

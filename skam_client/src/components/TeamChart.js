@@ -12,46 +12,24 @@ import {
 const TeamChart = () => {
     const [data, setData] = useState([
         {
-            name: "Page A",
-            uv: 4000,
-            pv: 2400,
-            amt: 2400,
+            name: "Name 1",
+            vote: 4000,
         },
         {
-            name: "Page B",
-            uv: 3000,
-            pv: 1398,
-            amt: 2210,
+            name: "Name 2",
+            vote: 3000,
         },
         {
-            name: "Page C",
-            uv: 2000,
-            pv: 9800,
-            amt: 2290,
+            name: "Name 3",
+            vote: 2000,
         },
         {
-            name: "Page D",
-            uv: 2780,
-            pv: 3908,
-            amt: 2000,
+            name: "Name 4",
+            vote: 2780,
         },
         {
-            name: "Page E",
-            uv: 1890,
-            pv: 4800,
-            amt: 2181,
-        },
-        {
-            name: "Page F",
-            uv: 2390,
-            pv: 3800,
-            amt: 2500,
-        },
-        {
-            name: "Page G",
-            uv: 3490,
-            pv: 4300,
-            amt: 2100,
+            name: "Name 5",
+            vote: 1890,
         },
     ]);
     return (
@@ -73,8 +51,7 @@ const TeamChart = () => {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="pv" fill="#8884d8" />
-                    <Bar dataKey="uv" fill="#82ca9d" />
+                    <Bar dataKey="vote" fill="#8884d8" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
