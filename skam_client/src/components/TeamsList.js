@@ -60,7 +60,11 @@ const TeamsList = ({ web3, SKAMContract, toast, setUser }) => {
                             return (
                                 <div className="col-md-6" key={item.index}>
                                     <TeamCard
-                                        thumbnail="/assets/teams/team1.png"
+                                        thumbnail={`/assets/teams/team${
+                                            (Math.floor(Math.random() * 10) %
+                                                7) +
+                                            1
+                                        }.png`}
                                         web3={web3}
                                         SKAMContract={SKAMContract}
                                     >
