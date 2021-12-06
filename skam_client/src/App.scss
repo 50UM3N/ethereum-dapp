@@ -1,6 +1,8 @@
 $primary: #667eea;
 @import "~bootstrap/scss/bootstrap.scss";
-
+body {
+    background-color: #f1f5f9;
+}
 .loader-wrapper {
     background-color: #c4d9eb;
     width: 100vw;
