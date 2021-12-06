@@ -12,6 +12,7 @@ import Toast from "./components/Toast";
 const App = () => {
     const [web3, SKAMContract, accounts, isPending, user, admin] =
         useWeb3(skam);
+        // console.log(user);
     const [pending, setPending] = useState(false);
     const [toastData, setToastData] = useState({
         enable: false,
@@ -51,7 +52,7 @@ const App = () => {
                             pending={pending}
                         />
                     )}
-                    <TeamsList web3={web3} SKAMContract={SKAMContract} />
+                    <TeamsList web3={web3} SKAMContract={SKAMContract} userDetails={user}/>
 
                     <div className="card my-3">
                         <div className="card-header">Result</div>
