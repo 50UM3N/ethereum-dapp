@@ -20,15 +20,7 @@ const TeamCard = ({ children, thumbnail }) => {
                         alignItems: "center",
                     }}
                 >
-                    <div className="card-body">
-                        {children}
-
-                        <div className="d-flex justify-content-end">
-                            <button className="btn btn-outline-primary btn-sm">
-                                Vote
-                            </button>
-                        </div>
-                    </div>
+                    <div className="card-body">{children}</div>
                 </div>
             </div>
         </div>

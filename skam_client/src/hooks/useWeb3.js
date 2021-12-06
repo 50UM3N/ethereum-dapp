@@ -8,6 +8,7 @@ const useWeb3 = ({ abi, networks }) => {
     const [isPending, setIsPending] = useState(true);
     const [user, setUser] = useState(null);
     const [admin, setAdmin] = useState(null);
+
     useEffect(() => {
         const func = async () => {
             let contractABI = abi;
@@ -30,8 +31,7 @@ const useWeb3 = ({ abi, networks }) => {
 
             let admin = await contract.methods.isAdmin().call({ from: acc[0] });
             let user = await contract.methods.getUser().call({ from: acc[0] });
-            console.log(user);
-            setUser(user);
+            setUser({ added: user.added, vote: user.vote, voted: user.voted });
             setAdmin(admin);
             setWeb3(web3);
             setAccounts(acc);
@@ -41,7 +41,7 @@ const useWeb3 = ({ abi, networks }) => {
         func();
     }, []);
 
-    return [web3, contract, accounts, isPending, user, admin];
+    return [web3, contract, accounts, isPending, { user, setUser }, admin];
 };
 
 export default useWeb3;

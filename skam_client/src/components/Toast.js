@@ -2,7 +2,10 @@ const Toast = ({ setToastData, toastData }) => {
     return (
         <>
             {toastData.enable && (
-                <div class="toast-container position-absolute top-0 end-0 p-3" style={{zIndex:9000}}>
+                <div
+                    className="toast-container position-absolute top-0 end-0 p-3"
+                    style={{ zIndex: 9000 }}
+                >
                     <div
                         className="toast fade show"
                         role="alert"

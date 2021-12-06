@@ -56,6 +56,8 @@ contract skam {
         else return false;
     }
 
+    event Vote(Voter _voter);
+
     function vote(uint256 to) public {
         Voter storage voter = voters[msg.sender];
         require(voter.added, "You are not eligible to give vote.");
@@ -66,6 +68,8 @@ contract skam {
         voter.vote = to;
 
         teams[to].voteCount += 1;
+
+        emit Vote(voter);
     }
 
     function getWinnerIndex() public view returns (uint256 _winner) {
