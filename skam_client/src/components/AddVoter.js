@@ -6,7 +6,13 @@ const AddVoter = ({ handleAddVoter, pending }) => {
         <div className="card my-3">
             <div className="card-header">Add new voter to voter list</div>
             <div className="card-body">
-                <form onSubmit={(e) => handleAddVoter(e, addressInput)}>
+                <form
+                    onSubmit={(e) =>
+                        handleAddVoter(e, addressInput, (data) => {
+                            setAddressInput("");
+                        })
+                    }
+                >
                     <label className="form-label">
                         Enter the account address and add to the account to
                         voter list

@@ -18,24 +18,31 @@ const App = () => {
         toastTitle: "",
         toastBody: "",
     });
-    const handleAddVoter = (e, value) => {
+    const handleAddVoter = (e, value, callback) => {
         e.preventDefault();
         if (!web3.utils.isAddress(value)) return;
+        setPending(true);
         SKAMContract.methods
             .addVoter(value)
             .send({ from: accounts[0] })
             .then((data) => {
-                console.log(data);
+                callback(data);
+                setToastData({
+                    enable: true,
+                    toastTitle: "SKAM Success 😋",
+                    toastBody: "Successfully add voter to voter list 😎",
+                });
+                setPending(false);
             })
             .catch((e) => {
                 let error = JSON.parse(e.message.split("'")[1]).value.data
                     .message;
-                setToastData((data) => ({
-                    ...data,
-                    ["enable"]: true,
-                    ["toastTitle"]: "Ethereum Error",
-                    ["toastBody"]: error,
-                }));
+                setToastData({
+                    enable: true,
+                    toastTitle: "SKAM Error",
+                    toastBody: error,
+                });
+                setPending(false);
             });
     };
 
