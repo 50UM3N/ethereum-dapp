@@ -13,7 +13,9 @@ const Toast = ({ setToastData, toastData }) => {
                         aria-atomic="true"
                     >
                         <div className="toast-header">
-                            <img src="..." className="rounded me-2" alt="..." />
+                            <div
+                                className={`bd-placeholder-img me-2 ${toastData.type} `}
+                            ></div>
                             <strong className="me-auto">
                                 {toastData.toastTitle}
                             </strong>
@@ -21,11 +23,11 @@ const Toast = ({ setToastData, toastData }) => {
                                 type="button"
                                 className="btn-close"
                                 onClick={() => {
-                                    setToastData((oldState) => {
-                                        return {
-                                            ...oldState,
-                                            ["enable"]: false,
-                                        };
+                                    setToastData({
+                                        type: "",
+                                        enable: false,
+                                        toastTitle: "",
+                                        toastBody: "",
                                     });
                                 }}
                             ></button>

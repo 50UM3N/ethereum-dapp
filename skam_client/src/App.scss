@@ -135,3 +135,16 @@ $primary: #667eea;
         }
     }
 }
+
+.bd-placeholder-img {
+    --size: 20px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 4px;
+    &.error {
+        background-color: $danger;
+    }
+    &.success {
+        background-color: $primary;
+    }
+}

@@ -39,7 +39,7 @@ const useWeb3 = ({ abi, networks }) => {
             setIsPending(false);
         };
         func();
-    }, []);
+    }, [abi, networks]);
 
     return [web3, contract, accounts, isPending, { user, setUser }, admin];
 };

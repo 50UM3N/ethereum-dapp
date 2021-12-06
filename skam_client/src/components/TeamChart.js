@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     BarChart,
     Bar,
@@ -9,29 +9,21 @@ import {
     Legend,
     ResponsiveContainer,
 } from "recharts";
-const TeamChart = () => {
-    const [data, setData] = useState([
-        {
-            name: "Name 1",
-            vote: 4000,
-        },
-        {
-            name: "Name 2",
-            vote: 3000,
-        },
-        {
-            name: "Name 3",
-            vote: 2000,
-        },
-        {
-            name: "Name 4",
-            vote: 2780,
-        },
-        {
-            name: "Name 5",
-            vote: 1890,
-        },
-    ]);
+const TeamChart = ({ web3, SKAMContract }) => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const func = async () => {
+            let voteData = await SKAMContract.methods.getTeams().call();
+            voteData = voteData.map((item) => {
+                return {
+                    name: web3.utils.hexToString(item[0]),
+                    vote: item[1],
+                };
+            });
+            setData(voteData);
+        };
+        func();
+    }, [web3, SKAMContract]);
     return (
         <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer>

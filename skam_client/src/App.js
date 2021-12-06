@@ -14,6 +14,7 @@ const App = () => {
         useWeb3(skam);
     const [pending, setPending] = useState(false);
     const [toastData, setToastData] = useState({
+        type: "",
         enable: false,
         toastTitle: "",
         toastBody: "",
@@ -28,6 +29,7 @@ const App = () => {
             .then((data) => {
                 callback(data);
                 setToastData({
+                    type: "success",
                     enable: true,
                     toastTitle: "SKAM Success 😋",
                     toastBody: "Successfully add voter to voter list 😎",
@@ -38,6 +40,7 @@ const App = () => {
                 let error = JSON.parse(e.message.split("'")[1]).value.data
                     .message;
                 setToastData({
+                    type: "error",
                     enable: true,
                     toastTitle: "SKAM Error",
                     toastBody: error,
@@ -57,14 +60,30 @@ const App = () => {
                         <p>
                             A simple digital voting solution made in top of
                             Ethereum blockchain and react by{" "}
-                            <a href="#" class="alert-link">
-                                50um3n
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://github.com/50UM3N"
+                                className="alert-link"
+                            >
+                                50UM3N
                             </a>{" "}
                             and{" "}
-                            <a href="#" class="alert-link">
-                                4rn4b
-                            </a>{" "}
-                            and y ou can star our repo
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href="https://github.com/4RN4B"
+                                className="alert-link"
+                            >
+                                4RN4B
+                            </a>
+                            . You can star our repo{" "}
+                            <a
+                                href="https://github.com/50UM3N/ethereum-dapp"
+                                className="alert-link"
+                            >
+                                ethereum-dapp
+                            </a>
                         </p>
                         <hr />
                         <p className="mb-0">
@@ -97,7 +116,10 @@ const App = () => {
                             <div className="card my-3">
                                 <div className="card-header">Result</div>
                                 <div className="card-body">
-                                    <TeamChart />
+                                    <TeamChart
+                                        web3={web3}
+                                        SKAMContract={SKAMContract}
+                                    />
                                 </div>
                             </div>
                         </>
