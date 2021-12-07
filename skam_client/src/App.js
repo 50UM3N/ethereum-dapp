@@ -37,15 +37,17 @@ const App = () => {
                 setPending(false);
             })
             .catch((e) => {
-                let error = JSON.parse(e.message.split("'")[1]).value.data
-                    .message;
+                setPending(false);
+                // let error = JSON.parse(
+                //     e.message.slice(58, e.message.length - 2)
+                // ).data.message;
+                // console.log(error);
                 setToastData({
                     type: "error",
                     enable: true,
                     toastTitle: "SKAM Error",
-                    toastBody: error,
+                    toastBody: "Error while adding to voter list",
                 });
-                setPending(false);
             });
     };
 

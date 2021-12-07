@@ -17,6 +17,7 @@ const TeamsList = ({ web3, SKAMContract, toast, setUser }) => {
                     toastBody: "You give your vote successfully!!!",
                 });
                 let userData = data.events.Vote.returnValues[0];
+                console.log(data);
                 setUser({
                     added: userData.added,
                     vote: userData.vote,
@@ -24,13 +25,13 @@ const TeamsList = ({ web3, SKAMContract, toast, setUser }) => {
                 });
             })
             .catch((e) => {
-                let error = JSON.parse(e.message.split("'")[1]).value.data
-                    .message;
+                // let error = JSON.parse(e.message.split("'")[1]).value.data
+                //     .message;
                 toast.setToastData({
                     type: "error",
                     enable: true,
                     toastTitle: "SKAM Error",
-                    toastBody: error,
+                    toastBody: "SKAMMED while giving vote",
                 });
                 setPending(false);
             });
